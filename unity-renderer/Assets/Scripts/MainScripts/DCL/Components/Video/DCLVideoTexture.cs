@@ -6,6 +6,7 @@ using UnityEngine;
 using DCL.Components.Video.Plugin;
 using DCL.Helpers;
 using DCL.Interface;
+using UnityEngine.Rendering;
 
 namespace DCL.Components
 {
@@ -36,7 +37,7 @@ namespace DCL.Components
         }
 
         internal WebVideoPlayer texturePlayer;
-        private Coroutine texturePlayerUpdateRoutine;
+
         private float baseVolume;
         private float distanceVolumeModifier = 1f;
         private bool isPlayStateDirty = false;
@@ -82,6 +83,7 @@ namespace DCL.Components
                     unityWrap = TextureWrapMode.Mirror;
                     break;
             }
+
             lastVideoClipID = model.videoClipId;
 
             if (texturePlayer == null)
@@ -96,7 +98,9 @@ namespace DCL.Components
 
                 string videoId = (!string.IsNullOrEmpty(scene.sceneData.id)) ? scene.sceneData.id + id : scene.GetHashCode().ToString() + id;
                 texturePlayer = new WebVideoPlayer(videoId, dclVideoClip.GetUrl(), dclVideoClip.isStream, new WebVideoPlayerNative());
-                texturePlayerUpdateRoutine = CoroutineStarter.Start(OnUpdate());
+
+                RenderPipelineManager.beginFrameRendering += OnUpdate;
+
                 CommonScriptableObjects.playerCoords.OnChange += OnPlayerCoordsChanged;
                 CommonScriptableObjects.sceneID.OnChange += OnSceneIDChanged;
                 scene.OnEntityRemoved += OnEntityRemoved;
@@ -121,12 +125,7 @@ namespace DCL.Components
 
                 if (texturePlayer.isError)
                 {
-                    if (texturePlayerUpdateRoutine != null)
-                    {
-                        CoroutineStarter.Stop(texturePlayerUpdateRoutine);
-                        texturePlayerUpdateRoutine = null;
-                    }
-
+                    RenderPipelineManager.beginFrameRendering -= OnUpdate;
                     yield break;
                 }
 
@@ -179,16 +178,13 @@ namespace DCL.Components
             texture.Apply(unitySamplingMode != FilterMode.Point, true);
         }
 
-        private IEnumerator OnUpdate()
+        private void OnUpdate(ScriptableRenderContext scriptableRenderContext, Camera[] cameras)
         {
-            while (true)
-            {
-                UpdateDirtyState();
-                UpdateVideoTexture();
-                UpdateProgressReport();
-                yield return null;
-            }
+            UpdateDirtyState();
+            UpdateVideoTexture();
+            UpdateProgressReport();
         }
+
         private void UpdateDirtyState()
         {
             if (isPlayStateDirty)
@@ -197,6 +193,7 @@ namespace DCL.Components
                 isPlayStateDirty = false;
             }
         }
+
         private void UpdateVideoTexture()
         {
             if (!isPlayerInScene && currUpdateIntervalTime < OUTOFSCENE_TEX_UPDATE_INTERVAL_IN_SECONDS)
@@ -209,16 +206,18 @@ namespace DCL.Components
                 texturePlayer.UpdateWebVideoTexture();
             }
         }
+
         private void UpdateProgressReport()
         {
             var currentState = texturePlayer.GetState();
-            if ( currentState == VideoState.PLAYING 
+            if ( currentState == VideoState.PLAYING
                  && IsTimeToReportVideoProgress()
                  || previousVideoState != currentState)
             {
                 ReportVideoProgress();
             }
         }
+
         private void ReportVideoProgress()
         {
             lastVideoProgressReportTime = Time.unscaledTime;
@@ -229,6 +228,7 @@ namespace DCL.Components
             var length = texturePlayer.GetDuration();
             WebInterface.ReportVideoProgressEvent(id, scene.sceneData.id, lastVideoClipID, videoStatus, currentOffset, length );
         }
+
         private bool IsTimeToReportVideoProgress() { return Time.unscaledTime - lastVideoProgressReportTime > VIDEO_PROGRESS_UPDATE_INTERVAL_IN_SECONDS; }
 
         private void CalculateVideoVolumeAndPlayStatus()
@@ -398,11 +398,8 @@ namespace DCL.Components
             CommonScriptableObjects.sceneID.OnChange -= OnSceneIDChanged;
             if (scene != null)
                 scene.OnEntityRemoved -= OnEntityRemoved;
-            if (texturePlayerUpdateRoutine != null)
-            {
-                CoroutineStarter.Stop(texturePlayerUpdateRoutine);
-                texturePlayerUpdateRoutine = null;
-            }
+
+            RenderPipelineManager.beginFrameRendering -= OnUpdate;
 
             if (texturePlayer != null)
             {
