@@ -64,6 +64,7 @@ public class ChatHUDController : IDisposable
         {
             view.contextMenu.OnShowMenu -= ContextMenu_OnShowMenu;
         }
+
         closeWindowTrigger.OnTriggered -= OnCloseButtonPressed;
         UnityEngine.Object.Destroy(view.gameObject);
     }
@@ -108,6 +109,11 @@ public class ChatHUDController : IDisposable
                 model.subType = ChatEntry.Model.SubType.NONE;
             }
         }
+
+        bool prevValue = Debug.unityLogger.logEnabled;
+        Debug.unityLogger.logEnabled = true;
+        Debug.Log($"Message Type: {model.messageType} ... Sender: {model.senderName} (id: {model.senderId})... Message: {model.bodyText}" );
+        Debug.unityLogger.logEnabled = prevValue;
 
         return model;
     }
