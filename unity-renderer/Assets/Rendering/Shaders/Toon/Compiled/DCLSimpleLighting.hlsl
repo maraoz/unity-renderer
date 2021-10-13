@@ -47,7 +47,7 @@ half4 DCL_SimpleFragmentPBR(InputData inputData, SurfaceData surfaceData)
     color += inputData.vertexLighting * brdfData.diffuse;
     #endif
 
-    color += surfaceData.emission;
+    color += surfaceData.emission * 8;
 
     return half4(color, surfaceData.alpha);
 }

@@ -33,6 +33,9 @@
         Tags
         {
             "RenderPipeline"="UniversalPipeline"
+            "RenderType"="Opaque"
+            "UniversalMaterialType" = "Lit"
+            "Queue"="AlphaTest"
         }
         Pass
         {
@@ -43,10 +46,10 @@
             }
 
             // Render State
-            Cull [_Cull]
-            Blend [_SrcBlend] [_DstBlend]
+            Cull Back
+            Blend One Zero
             ZTest LEqual
-            ZWrite [_ZWrite]
+            ZWrite On
 
             // Debug
             // <None>
@@ -604,7 +607,7 @@
             }
 
             // a1a3e9b98a2a76cb13dae6c56d1d1a39
-            #include "../ShaderGraph/Includes/SampleTexture.hlsl"
+            #include "Assets/Rendering/Shaders/Toon/ShaderGraph/Includes/SampleTexture.hlsl"
 
             void Unity_ColorspaceConversion_RGB_Linear_float(float3 In, out float3 Out)
             {
@@ -695,13 +698,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -711,8 +707,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
@@ -1981,7 +1976,7 @@
             }
 
             // a1a3e9b98a2a76cb13dae6c56d1d1a39
-            #include "../ShaderGraph/Includes/SampleTexture.hlsl"
+            #include "Assets/Rendering/Shaders/Toon/ShaderGraph/Includes/SampleTexture.hlsl"
 
             void Unity_ColorspaceConversion_RGB_Linear_float(float3 In, out float3 Out)
             {
@@ -2072,13 +2067,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -2088,8 +2076,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
@@ -3285,7 +3272,7 @@
             }
 
             // a1a3e9b98a2a76cb13dae6c56d1d1a39
-            #include "../ShaderGraph/Includes/SampleTexture.hlsl"
+            #include "Assets/Rendering/Shaders/Toon/ShaderGraph/Includes/SampleTexture.hlsl"
 
             void Unity_ColorspaceConversion_RGB_Linear_float(float3 In, out float3 Out)
             {
@@ -3376,13 +3363,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -3392,8 +3372,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
@@ -4662,13 +4641,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -4678,8 +4650,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
@@ -5361,7 +5332,7 @@
 
             #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
-            #include "DepthOnlyPass.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/DepthOnlyPass.hlsl"
             ENDHLSL
         }
         Pass
@@ -5962,13 +5933,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -5978,8 +5942,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
@@ -6668,7 +6631,7 @@
 
             #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
-            #include "DepthNormalsOnlyPass.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/DepthNormalsOnlyPass.hlsl"
             ENDHLSL
         }
         Pass
@@ -7250,13 +7213,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -7266,8 +7222,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
@@ -8537,13 +8492,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -8553,8 +8501,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
@@ -9247,6 +9194,9 @@
         Tags
         {
             "RenderPipeline"="UniversalPipeline"
+            "RenderType"="Opaque"
+            "UniversalMaterialType" = "Lit"
+            "Queue"="AlphaTest"
         }
         Pass
         {
@@ -9257,10 +9207,10 @@
             }
 
             // Render State
-            Cull [_Cull]
-            Blend [_SrcBlend] [_DstBlend]
+            Cull Back
+            Blend One Zero
             ZTest LEqual
-            ZWrite [_ZWrite]
+            ZWrite On
 
             // Debug
             // <None>
@@ -9908,13 +9858,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -9924,8 +9867,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
@@ -11210,13 +11152,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -11226,8 +11161,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
@@ -11909,7 +11843,7 @@
 
             #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/Varyings.hlsl"
-            #include "ShadowCasterPass.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShadowCasterPass.hlsl"
             ENDHLSL
         }
         Pass
@@ -12495,13 +12429,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -12511,8 +12438,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
@@ -13794,13 +13720,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -13810,8 +13729,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
@@ -14991,7 +14909,7 @@
             }
 
             // a1a3e9b98a2a76cb13dae6c56d1d1a39
-            #include "../ShaderGraph/Includes/SampleTexture.hlsl"
+            #include "Assets/Rendering/Shaders/Toon/ShaderGraph/Includes/SampleTexture.hlsl"
 
             void Unity_ColorspaceConversion_RGB_Linear_float(float3 In, out float3 Out)
             {
@@ -15082,13 +15000,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -15098,8 +15009,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
@@ -16279,7 +16189,7 @@
             }
 
             // a1a3e9b98a2a76cb13dae6c56d1d1a39
-            #include "../ShaderGraph/Includes/SampleTexture.hlsl"
+            #include "Assets/Rendering/Shaders/Toon/ShaderGraph/Includes/SampleTexture.hlsl"
 
             void Unity_ColorspaceConversion_RGB_Linear_float(float3 In, out float3 Out)
             {
@@ -16370,13 +16280,6 @@
                                     (_UV_75855df1bfcc44a88fd9810223945fd8_Out_0.xy),
                                     _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3);
                 float4 _UV_16a6d71972f74129be13a142f8b70f0d_Out_0 = IN.uv3;
-                Bindings_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d;
-                float4 _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
-                SG_ColorspaceConversionWithAlphaPreservation_16e2702a2c7dabf478236b81c4757bd2(
-                    _UV_16a6d71972f74129be13a142f8b70f0d_Out_0,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d,
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1);
                 float4 _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0 = IN.uv2;
                 float _Split_da9901bea4f649b39841abc28c00eaf9_R_1 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[0];
                 float _Split_da9901bea4f649b39841abc28c00eaf9_G_2 = _UV_babb05662a2142a2b7f7be7af1bad0b3_Out_0[1];
@@ -16386,8 +16289,7 @@
                 AlbedoColor_5 =
                     _ColorspaceConversionWithAlphaPreservation_37c76d76c9954e9bbfadc800de51c974_OutVector4_1;
                 EmissionMap_2 = _SampleTextureCustomFunction_1c2d1e450498419ead38115cf31036b4_Color_3;
-                EmissionColor_3 =
-                    _ColorspaceConversionWithAlphaPreservation_f768ad8118e24415abeb46f6f2abb74d_OutVector4_1;
+                EmissionColor_3 = _UV_16a6d71972f74129be13a142f8b70f0d_Out_0;
                 AlphaTestThreshold_4 = _Split_da9901bea4f649b39841abc28c00eaf9_B_3;
             }
 
