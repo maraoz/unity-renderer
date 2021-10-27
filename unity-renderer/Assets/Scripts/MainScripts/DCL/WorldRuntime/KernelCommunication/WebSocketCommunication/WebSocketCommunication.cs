@@ -109,7 +109,7 @@ public class WebSocketCommunication : IKernelCommunication
         messageTypeToBridgeName["DumpRendererLockersInfo"] = "Main";
         messageTypeToBridgeName["PublishSceneResult"] = "Main";
         messageTypeToBridgeName["BuilderProjectInfo"] = "Main";
-        messageTypeToBridgeName["BuilderInWorldCatalogHeaders"] = "Main";
+        messageTypeToBridgeName["BuilderInWorldCatalogHeaders"] = "Bridges";
         messageTypeToBridgeName["AddAssets"] = "Main";
         messageTypeToBridgeName["RunPerformanceMeterTool"] = "Main";
         messageTypeToBridgeName["InstantiateBotsAtWorldPos"] = "Main";
@@ -136,7 +136,7 @@ public class WebSocketCommunication : IKernelCommunication
         messageTypeToBridgeName["SetVoiceChatEnabledByScene"] = "HUDController";
         messageTypeToBridgeName["TriggerSelfUserExpression"] = "HUDController";
         messageTypeToBridgeName["AirdroppingRequest"] = "HUDController";
-        
+
         messageTypeToBridgeName["GetMousePosition"] = "BuilderController";
         messageTypeToBridgeName["SelectGizmo"] = "BuilderController";
         messageTypeToBridgeName["ResetObject"] = "BuilderController";

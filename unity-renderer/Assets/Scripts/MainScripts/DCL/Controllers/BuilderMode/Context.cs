@@ -16,7 +16,7 @@ public class Context
     public IBuilderProjectsPanelController panelHUD { get; private set; }
     public IBIWEditor editor;
 
-    public InitialSceneReferences.Data sceneReferences { get; private set; }
+    public ISceneReferences sceneReferences { get; private set; }
 
     //Editor
     public EditorContext editorContext { get; private set; }
@@ -36,7 +36,7 @@ public class Context
         IBIWSaveController saveController,
         IBIWRaycastController raycastController,
         IBIWGizmosController gizmosController,
-        InitialSceneReferences.Data sceneReferences)
+        ISceneReferences sceneReferences)
     {
 
         projectReferencesAsset = Resources.Load<BIWProjectReferences>(PROJECT_REFERENCES_PATH);
@@ -101,7 +101,7 @@ public class EditorContext
     public IBIWSaveController saveController { get; private set; }
     public IBIWRaycastController raycastController { get; private set; }
     public IBIWGizmosController gizmosController { get; private set; }
-    public InitialSceneReferences.Data sceneReferences { get; private set; }
+    public ISceneReferences sceneReferences { get; private set; }
 
     public EditorContext(IBuilderEditorHUDController editorHUD,
         IBIWOutlinerController outlinerController,
@@ -116,7 +116,7 @@ public class EditorContext
         IBIWSaveController saveController,
         IBIWRaycastController raycastController,
         IBIWGizmosController gizmosController,
-        InitialSceneReferences.Data sceneReferences)
+        ISceneReferences sceneReferences)
     {
         godModeDynamicVariablesAsset = Resources.Load<BIWGodModeDynamicVariables>(GOD_MODE_DYNAMIC_VARIABLE_PATH);
         firstPersonDynamicVariablesAsset = Resources.Load<BIWFirstPersonDynamicVariables>(FIRST_PERSON_DYNAMIC_VARIABLE_PATH);

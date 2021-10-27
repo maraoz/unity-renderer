@@ -76,7 +76,7 @@ public class BIWModeController : BIWController, IBIWModeController
         base.Initialize(context);
 
         cursorGO = context.sceneReferences.cursorCanvas;
-        cameraParentGO = context.sceneReferences.cameraParent;
+        cameraParentGO = context.sceneReferences.biwCameraParent;
         InitGameObjects();
 
         firstPersonMode = new BIWFirstPersonMode();

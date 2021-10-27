@@ -33,7 +33,7 @@ public class BuilderInWorldPlugin : PluginFeature
             new BIWSaveController(),
             new BIWRaycastController(),
             new BIWGizmosController(),
-            InitialSceneReferences.i.data);
+            SceneReferences.i);
     }
 
     public BuilderInWorldPlugin(Context context) { this.context = context; }

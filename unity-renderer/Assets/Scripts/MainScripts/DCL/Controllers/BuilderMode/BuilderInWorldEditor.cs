@@ -95,7 +95,7 @@ public class BuilderInWorldEditor : IBIWEditor
 
         this.context = context;
 
-        InitReferences(InitialSceneReferences.i.data);
+        InitReferences(SceneReferences.i);
 
         if (builderInWorldBridge != null)
         {
@@ -136,7 +136,7 @@ public class BuilderInWorldEditor : IBIWEditor
         builderInWorldBridge.AskKernelForCatalogHeadersWithParams("get", "/assetPacks?owner=" + ethAddress);
     }
 
-    public void InitReferences(InitialSceneReferences.Data sceneReferences)
+    public void InitReferences(ISceneReferences sceneReferences)
     {
         builderInWorldBridge = sceneReferences.builderInWorldBridge;
         cursorGO = sceneReferences.cursorCanvas;

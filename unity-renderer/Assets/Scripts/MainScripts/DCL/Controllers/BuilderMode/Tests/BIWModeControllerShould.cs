@@ -20,7 +20,7 @@ public class BIWModeControllerShould : IntegrationTestSuite_Legacy
         context = BIWTestUtils.CreateContextWithGenericMocks(
             actionController,
             biwModeController,
-            InitialSceneReferences.i.data
+            SceneReferences.i
         );
 
         biwModeController.Initialize(context);

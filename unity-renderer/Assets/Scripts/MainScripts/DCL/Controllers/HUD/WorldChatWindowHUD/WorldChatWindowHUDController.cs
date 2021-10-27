@@ -109,7 +109,7 @@ public class WorldChatWindowHUDController : IHUD
             if (!isPrivateMessage && !view.isInPreview)
             {
                 view.ActivatePreview();
-                InitialSceneReferences.i.mouseCatcher.LockCursor();
+                SceneReferences.i.mouseCatcher.LockCursor();
                 invalidSubmitLastFrame = Time.frameCount;
             }
 
@@ -153,7 +153,7 @@ public class WorldChatWindowHUDController : IHUD
         SetVisibility(true);
         view.chatHudView.FocusInputField();
         view.DeactivatePreview();
-        InitialSceneReferences.i?.mouseCatcher.UnlockCursor();
+        SceneReferences.i?.mouseCatcher.UnlockCursor();
 
         if (!string.IsNullOrEmpty(setInputText))
         {
