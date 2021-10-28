@@ -71,10 +71,20 @@ namespace DCL.Components.Video.Plugin
             }
         }
 
+        void Log(string s)
+        {
+            Debug.unityLogger.logEnabled = true;
+            Debug.Log("Alex: " + s);
+            Debug.unityLogger.logEnabled = false;
+        }
+        
         public void Play()
         {
             if (isError)
+            {
+                Log("Tried to play but has error");
                 return;
+            }
 
             plugin.Play(videoPlayerId, pausedAtTime);
             pausedAtTime = -1;
@@ -85,7 +95,10 @@ namespace DCL.Components.Video.Plugin
         public void Pause()
         {
             if (isError)
+            {
+                Log($"Tried to pause but has error");
                 return;
+            }
 
             pausedAtTime = plugin.GetTime(videoPlayerId);
             plugin.Pause(videoPlayerId);
