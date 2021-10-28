@@ -86,6 +86,7 @@ namespace DCL.Components.Video.Plugin
                 return;
             }
 
+            Log("Playing normally");
             plugin.Play(videoPlayerId, pausedAtTime);
             pausedAtTime = -1;
 
@@ -100,6 +101,7 @@ namespace DCL.Components.Video.Plugin
                 return;
             }
 
+            Log("Pausing normally");
             pausedAtTime = plugin.GetTime(videoPlayerId);
             plugin.Pause(videoPlayerId);
             shouldBePlaying = false;
