@@ -12,6 +12,8 @@ namespace DCL.Components.Video.Plugin
         public bool playing { get { return shouldBePlaying; } }
         public bool visible { get; set; }
         public bool isError { get; private set; }
+        
+        private static bool isWebGL1 => SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.OpenGLES2;
 
         private string videoPlayerId;
 
@@ -63,7 +65,7 @@ namespace DCL.Components.Video.Plugin
 
                         if (width > 0 && height > 0)
                         {
-                            plugin.TextureUpdate(videoPlayerId);
+                            plugin.TextureUpdate(videoPlayerId, isWebGL1);
                         }
                     }
 
