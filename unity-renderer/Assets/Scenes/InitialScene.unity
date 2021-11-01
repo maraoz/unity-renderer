@@ -1221,7 +1221,7 @@ PrefabInstance:
     - target: {fileID: 326638022635035865, guid: b0965b55b892d438da492708ea09799c,
         type: 3}
       propertyPath: m_Lens.FarClipPlane
-      value: 242
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 326638022635035865, guid: b0965b55b892d438da492708ea09799c,
         type: 3}
@@ -1451,7 +1451,7 @@ PrefabInstance:
     - target: {fileID: 3666597879787490177, guid: b0965b55b892d438da492708ea09799c,
         type: 3}
       propertyPath: m_Lens.FarClipPlane
-      value: 242
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 3666597879787490177, guid: b0965b55b892d438da492708ea09799c,
         type: 3}
