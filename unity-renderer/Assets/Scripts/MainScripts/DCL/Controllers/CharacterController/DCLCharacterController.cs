@@ -344,7 +344,6 @@ public class DCLCharacterController : MonoBehaviour
             Environment.i.platform.physicsSyncController?.Sync();
             lastCharacterControllerCollision = characterController.Move(velocity * Time.deltaTime);
         }
-
         SetPosition(PositionUtils.UnityToWorldPosition(transform.position));
 
         if ((DCLTime.realtimeSinceStartup - lastMovementReportTime) > PlayerSettings.POSITION_REPORTING_DELAY)

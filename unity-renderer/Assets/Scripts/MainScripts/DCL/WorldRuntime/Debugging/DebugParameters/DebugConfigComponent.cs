@@ -135,7 +135,7 @@ namespace DCL
             if (baseUrlMode == BaseUrl.CUSTOM)
                 baseUrl = baseUrlCustom;
             else
-                baseUrl = "http://localhost:3000/?";
+                baseUrl = "http://localhost:8080/?";
 
             switch (environment)
             {
