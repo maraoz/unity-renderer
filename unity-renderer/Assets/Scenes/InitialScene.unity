@@ -429,6 +429,7 @@ MonoBehaviour:
   target: {fileID: 291952943}
   avatarRenderer: {fileID: 1233371437}
   N: 5
+  waitTimeout: 60
 --- !u!1 &929297252 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 54063241633877533, guid: b0965b55b892d438da492708ea09799c,
