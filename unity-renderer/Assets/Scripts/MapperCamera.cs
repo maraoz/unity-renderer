@@ -108,12 +108,17 @@ public class MapperCamera : MonoBehaviour
         }
         currentPosition = new Vector3(currentX*N*parcelSize, 0, currentY*N*parcelSize);
 
-        Debug.Log("currentX: " + currentX + " currentY: " + currentY + " layer: " + layer + " leg: " + leg + " currentPosition: " + currentPosition);
+        // Debug.Log("currentX: " + currentX + " currentY: " + currentY + " layer: " + layer + " leg: " + leg + " currentPosition: " + currentPosition);
+        Debug.Log("now moving to position: (" + currentX*N + ", " + currentY*N + ")");
         // move player to current position
         DCLCharacterController.i.SetPosition(new Vector3(parcelSize/2, 0, parcelSize/2) + currentPosition);
 
+        waitStartTime = Time.time;
         Invoke("WaitForScreenshot", 3f);
     }
+
+    private float waitStartTime = 0f;
+    public float waitTimeout = 60f;
 
     void WaitForScreenshot()
     {
@@ -128,16 +133,24 @@ public class MapperCamera : MonoBehaviour
             return;
         }
 
+        // check if waited too long (timeout)
+        if (Time.time - waitStartTime > waitTimeout)
+        {
+            Debug.Log("Timeout waiting for screenshot for coordinate (" + currentX*N + "," + currentY*N + ")");
+            GoToNextParcel();
+            return;
+        }
+
         // check if all scenes are loaded
-        bool ready = true;
+        bool allScenesLoaded = true;
         ParcelScene[] scenes = FindObjectsOfType<ParcelScene>();
         foreach (ParcelScene scene in scenes)
         {
             if (!scene.gameObject.name.Contains("ready!"))
-                ready = false;
+                allScenesLoaded = false;
         }
 
-        if (ready) {
+        if (allScenesLoaded) {
             Debug.Log("all scenes are loaded, taking screenshot at (" + currentX*N + "," + currentY*N + ")");
             ScreenCapture.CaptureScreenshot(fullScreenshotPath);
             Invoke("GoToNextParcel", 2f);
