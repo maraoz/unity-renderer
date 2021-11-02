@@ -11,6 +11,8 @@ public class MapperCamera : MonoBehaviour
 
     public int N = 5;
 
+    public float flyingHeight = 10f;
+
     private float parcelSize = 16f;
     private float distance = 50f;
 
@@ -30,14 +32,14 @@ public class MapperCamera : MonoBehaviour
 
         GetComponent<Camera>().orthographicSize = N*parcelSize/2;
         // mouse wheel changes N up or down
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
-        {
-            N++;
-        }
-        if (Input.GetAxis("Mouse ScrollWheel") < 0)
-        {
-            N--;
-        }
+        // if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        // {
+        //     N++;
+        // }
+        // if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        // {
+        //     N--;
+        // }
 
 
         if (Input.GetKeyDown(KeyCode.Space) && !started)
@@ -106,7 +108,16 @@ public class MapperCamera : MonoBehaviour
             case 2: --currentX; if(-currentX == layer)  ++leg; break;
             case 3: --currentY; if(-currentY == layer) { leg = 0; ++layer; } break;
         }
-        currentPosition = new Vector3(currentX*N*parcelSize, 0, currentY*N*parcelSize);
+        currentPosition = new Vector3(currentX*N*parcelSize, flyingHeight, currentY*N*parcelSize);
+
+        string fullScreenshotPath = GetCurrentScreenshotPath();
+        // check if screenshot was already taken and skip if so
+        if (System.IO.File.Exists(fullScreenshotPath))
+        {
+            Debug.Log("Screenshot already exists for coordinate (" + currentX * N + "," + currentY * N + "), skipping...");
+            GoToNextParcel();
+            return;
+        }
 
         // Debug.Log("currentX: " + currentX + " currentY: " + currentY + " layer: " + layer + " leg: " + leg + " currentPosition: " + currentPosition);
         Debug.Log("now moving to position: (" + currentX*N + ", " + currentY*N + ")");
@@ -122,27 +133,21 @@ public class MapperCamera : MonoBehaviour
 
     void WaitForScreenshot()
     {
-        string desktopPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
-        string name = currentX*N + "," + currentY*N + ".png";
-        string fullScreenshotPath = desktopPath + "/map/" + name;
+        string fullScreenshotPath = GetCurrentScreenshotPath();
         // check if screenshot was already taken
         if (System.IO.File.Exists(fullScreenshotPath))
         {
-            Debug.Log("Screenshot already exists for coordinate (" + currentX*N + "," + currentY*N + ")");
+            Debug.Log("Screenshot already exists for coordinate (" + currentX * N + "," + currentY * N + ")");
             GoToNextParcel();
             return;
         }
 
         // check if waited too long (timeout)
-        if (Time.time - waitStartTime > waitTimeout)
-        {
-            Debug.Log("Timeout waiting for screenshot for coordinate (" + currentX*N + "," + currentY*N + ")");
-            GoToNextParcel();
-            return;
-        }
-
-        // check if all scenes are loaded
+        float waitedTime = Time.time - waitStartTime;
+        bool timeoutExpired = waitedTime > waitTimeout;
+        
         bool allScenesLoaded = true;
+        // check if all scenes are loaded
         ParcelScene[] scenes = FindObjectsOfType<ParcelScene>();
         foreach (ParcelScene scene in scenes)
         {
@@ -150,16 +155,30 @@ public class MapperCamera : MonoBehaviour
                 allScenesLoaded = false;
         }
 
-        if (allScenesLoaded) {
-            Debug.Log("all scenes are loaded, taking screenshot at (" + currentX*N + "," + currentY*N + ")");
+        if (allScenesLoaded || timeoutExpired)
+        {
+            if (allScenesLoaded) {
+                Debug.Log("all scenes are loaded, taking screenshot at (" + currentX * N + "," + currentY * N + ")");
+            }
+            if (timeoutExpired && !allScenesLoaded) {
+                Debug.Log("Timeout waiting for screenshot for coordinate (" + currentX * N + "," + currentY * N + ")");
+            }
             ScreenCapture.CaptureScreenshot(fullScreenshotPath);
             Invoke("GoToNextParcel", 2f);
         }
-        else {
-            Debug.Log("waiting for screenshot at (" + currentX*N + "," + currentY*N + ")");
+        else
+        {
+            Debug.Log("waiting for screenshot at (" + currentX * N + "," + currentY * N + ") for " + waitedTime + " seconds");
             Invoke("WaitForScreenshot", 2f);
         }
 
     }
 
+    private string GetCurrentScreenshotPath()
+    {
+        string desktopPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+        string name = currentX * N + "," + currentY * N + ".png";
+        string fullScreenshotPath = desktopPath + "/map/" + name;
+        return fullScreenshotPath;
+    }
 }
