@@ -31,16 +31,6 @@ public class MapperCamera : MonoBehaviour
     {
 
         GetComponent<Camera>().orthographicSize = N*parcelSize/2;
-        // mouse wheel changes N up or down
-        // if (Input.GetAxis("Mouse ScrollWheel") > 0)
-        // {
-        //     N++;
-        // }
-        // if (Input.GetAxis("Mouse ScrollWheel") < 0)
-        // {
-        //     N--;
-        // }
-
 
         if (Input.GetKeyDown(KeyCode.Space) && !started)
         {
@@ -66,24 +56,6 @@ public class MapperCamera : MonoBehaviour
             Debug.Log("Screen resolution: " + Screen.width + "x" + Screen.height);
 
 
-        // manual controls
-        // if (Input.GetKeyDown(KeyCode.Keypad4))
-        // {
-        //     target.position += new Vector3(-parcelSize, 0, 0);
-        // }
-        // if (Input.GetKeyDown(KeyCode.Keypad6))
-        // {
-        //     target.position += new Vector3(parcelSize, 0, 0);
-        // }
-        // if (Input.GetKeyDown(KeyCode.Keypad8))
-        // {
-        //     target.position += new Vector3(0, 0, parcelSize);
-        // }
-        // if (Input.GetKeyDown(KeyCode.Keypad5))
-        // {
-        //     target.position += new Vector3(0, 0, -parcelSize);
-        // }
-        
         transform.position = target.position + new Vector3(0,1,0) * distance;
         transform.LookAt(target);
     }
@@ -110,6 +82,11 @@ public class MapperCamera : MonoBehaviour
         }
         currentPosition = new Vector3(currentX*N*parcelSize, flyingHeight, currentY*N*parcelSize);
 
+        if (Mathf.Abs(currentPosition.x) > 150f) {
+            Debug.Log("Reached end of the world at " + currentPosition + ", layer " + layer);
+            Application.Quit();
+        }
+
         string fullScreenshotPath = GetCurrentScreenshotPath();
         // check if screenshot was already taken and skip if so
         if (System.IO.File.Exists(fullScreenshotPath))
@@ -119,7 +96,6 @@ public class MapperCamera : MonoBehaviour
             return;
         }
 
-        // Debug.Log("currentX: " + currentX + " currentY: " + currentY + " layer: " + layer + " leg: " + leg + " currentPosition: " + currentPosition);
         Debug.Log("now moving to position: (" + currentX*N + ", " + currentY*N + ")");
         // move player to current position
         DCLCharacterController.i.SetPosition(new Vector3(parcelSize/2, 0, parcelSize/2) + currentPosition);
@@ -149,29 +125,53 @@ public class MapperCamera : MonoBehaviour
         bool allScenesLoaded = true;
         // check if all scenes are loaded
         ParcelScene[] scenes = FindObjectsOfType<ParcelScene>();
-        foreach (ParcelScene scene in scenes)
-        {
-            if (!scene.gameObject.name.Contains("ready!"))
+        foreach (ParcelScene scene in scenes) {
+            bool importantScene = true;
+            // for (int ix = 0; ix < N && !importantScene; ix++) {
+            //     for (int iy = 0; iy < N && !importantScene; iy++) {
+            //         int wx = currentX*N - Mathf.FloorToInt((N-1)/2) + ix;
+            //         int wy = currentY*N - Mathf.FloorToInt((N-1)/2) + iy;
+            //         // Debug.Log("\tchecking if current scene is important: " + scene.gameObject.name + " vs (" + wx + ", " + wy + ")");
+            //         if (scene.gameObject.name.Contains("(" + wx + ", " + wy + ")")) {
+            //             importantScene = true;
+            //         }
+            //     }
+            // }
+            if (!importantScene) {
+                // Debug.Log("Scene " + scene.gameObject.name + " is not important, skipping...");
+                continue;
+            }
+            // Debug.Log("Scene " + scene.gameObject.name + " is important, checking if loaded...");
+
+            if (!scene.gameObject.name.Contains("ready!")) {
+                Debug.Log(scene.gameObject.name + " is not loaded, waiting...");
                 allScenesLoaded = false;
+            }
         }
 
-        if (allScenesLoaded || timeoutExpired)
-        {
+        if (allScenesLoaded || timeoutExpired) {
             if (allScenesLoaded) {
-                Debug.Log("all scenes are loaded, taking screenshot at (" + currentX * N + "," + currentY * N + ")");
+                Debug.Log("all scenes are loaded, preparing to take screenshot at (" + currentX * N + "," + currentY * N + ")");
             }
             if (timeoutExpired && !allScenesLoaded) {
-                Debug.Log("Timeout waiting for screenshot for coordinate (" + currentX * N + "," + currentY * N + ")");
+                Debug.Log("Timeout waiting for screenshot at coordinate (" + currentX * N + "," + currentY * N + ")");
             }
-            ScreenCapture.CaptureScreenshot(fullScreenshotPath);
-            Invoke("GoToNextParcel", 2f);
+            Invoke("TakeScreenshot", 5f);
         }
         else
         {
             Debug.Log("waiting for screenshot at (" + currentX * N + "," + currentY * N + ") for " + waitedTime + " seconds");
-            Invoke("WaitForScreenshot", 2f);
+            Invoke("WaitForScreenshot", 5f);
         }
 
+    }
+
+    private void TakeScreenshot()
+    {
+        string fullScreenshotPath = GetCurrentScreenshotPath();
+        Debug.Log("Taking screenshot at (" + currentX * N + "," + currentY * N + ") now!");
+        ScreenCapture.CaptureScreenshot(fullScreenshotPath);
+        Invoke("GoToNextParcel", 2f);
     }
 
     private string GetCurrentScreenshotPath()
