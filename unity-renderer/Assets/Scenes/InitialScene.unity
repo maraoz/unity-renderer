@@ -429,6 +429,7 @@ MonoBehaviour:
   target: {fileID: 291952943}
   avatarRenderer: {fileID: 1233371437}
   N: 5
+  flyingHeight: 10
   waitTimeout: 60
 --- !u!1 &929297252 stripped
 GameObject:
@@ -1359,6 +1360,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 442817057515250587, guid: b0965b55b892d438da492708ea09799c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 555242717119797939, guid: b0965b55b892d438da492708ea09799c,
         type: 3}
       propertyPath: m_RootOrder
@@ -1488,6 +1494,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AvatarPositionEntityReference
+      objectReference: {fileID: 0}
+    - target: {fileID: 7249126750621343183, guid: b0965b55b892d438da492708ea09799c,
+        type: 3}
+      propertyPath: gravity
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7249126750621343183, guid: b0965b55b892d438da492708ea09799c,
         type: 3}
