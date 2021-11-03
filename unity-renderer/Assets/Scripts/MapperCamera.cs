@@ -82,9 +82,10 @@ public class MapperCamera : MonoBehaviour
         }
         currentPosition = new Vector3(currentX*N*parcelSize, flyingHeight, currentY*N*parcelSize);
 
-        if (Mathf.Abs(currentPosition.x) > 150f) {
+        if (Mathf.Abs(currentX*N) > 150f) {
             Debug.Log("Reached end of the world at " + currentPosition + ", layer " + layer);
             Application.Quit();
+            return;
         }
 
         string fullScreenshotPath = GetCurrentScreenshotPath();
