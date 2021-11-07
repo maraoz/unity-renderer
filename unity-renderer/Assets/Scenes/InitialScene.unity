@@ -15,18 +15,18 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0.8443396, g: 0.93445873, b: 1, a: 1}
+  m_FogColor: {r: 0.20091766, g: 0.12156862, b: 0.29411766, a: 1}
   m_FogMode: 1
   m_FogDensity: 0.0001
   m_LinearFogStart: 60
   m_LinearFogEnd: 95
-  m_AmbientSkyColor: {r: 0.60784316, g: 0.92941177, b: 1, a: 1}
-  m_AmbientEquatorColor: {r: 0.98039216, g: 0.8352941, b: 0.74509805, a: 1}
-  m_AmbientGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_AmbientSkyColor: {r: 0.7882353, g: 0.6745098, b: 1, a: 1}
+  m_AmbientEquatorColor: {r: 0.6313726, g: 0.49411765, b: 0.7529412, a: 1}
+  m_AmbientGroundColor: {r: 0.7019608, g: 0.6156863, b: 0.81960785, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 1
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 7e1a5fec7e194e246a9d32f2f1a1498a, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 729329a05b53d4eee955bf1e5e1eaea7, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1076,7 +1076,7 @@ MonoBehaviour:
     soloSceneCoords: {x: 0, y: 0}
     ignoreGlobalScenes: 0
     msgStepByStep: 0
-  openBrowserWhenStart: 1
+  openBrowserWhenStart: 0
   useCustomContentServer: 0
   customContentServerUrl: http://localhost:1338/
   baseUrlMode: 1
