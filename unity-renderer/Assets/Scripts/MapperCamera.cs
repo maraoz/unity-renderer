@@ -38,12 +38,11 @@ public class MapperCamera : MonoBehaviour
             GameObject debugView = GameObject.Find("DebugView(Clone)");
             debugView.SetActive(false);
             avatarRenderer.SetActive(false);
-            GameObject.Find("_ExploreV2").SetActive(false);
 
             started = true;
 
             // go to first position
-            DCLCharacterController.i.SetPosition(new Vector3(parcelSize/2, 0, parcelSize/2));
+            // DCLCharacterController.i.SetPosition(new Vector3(parcelSize/2, 0, parcelSize/2));
             WaitForScreenshot();
         }
 
@@ -93,20 +92,25 @@ public class MapperCamera : MonoBehaviour
         if (System.IO.File.Exists(fullScreenshotPath))
         {
             Debug.Log("Screenshot already exists for coordinate (" + currentX * N + "," + currentY * N + "), skipping...");
-            GoToNextParcel();
+            Invoke("GoToNextParcel", 0.01f);
             return;
         }
 
         Debug.Log("now moving to position: (" + currentX*N + ", " + currentY*N + ")");
         // move player to current position
-        DCLCharacterController.i.SetPosition(new Vector3(parcelSize/2, 0, parcelSize/2) + currentPosition);
+        Vector3 targetPosition = new Vector3(parcelSize/2, 0, parcelSize/2) + currentPosition;
+        Vector3 delta = DCLCharacterController.i.characterPosition.worldPosition - targetPosition;
+        if (delta.magnitude > 0.1f) {
+            DCLCharacterController.i.SetPosition(targetPosition);
+        }        
 
         waitStartTime = Time.time;
-        Invoke("WaitForScreenshot", 3f);
+        Invoke("WaitForScreenshot", 2f);
     }
 
     private float waitStartTime = 0f;
     public float waitTimeout = 60f;
+    public float waitBeforeScreenshot = 20f;
 
     void WaitForScreenshot()
     {
@@ -157,7 +161,7 @@ public class MapperCamera : MonoBehaviour
             if (timeoutExpired && !allScenesLoaded) {
                 Debug.Log("Timeout waiting for screenshot at coordinate (" + currentX * N + "," + currentY * N + ")");
             }
-            Invoke("TakeScreenshot", 5f);
+            Invoke("TakeScreenshot", waitBeforeScreenshot);
         }
         else
         {
