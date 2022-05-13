@@ -351,10 +351,10 @@ public class DCLCharacterController : MonoBehaviour
             ReportMovement();
         }
 
-        if (isOnMovingPlatform)
-        {
-            SaveLateUpdateGroundTransforms();
-        }
+        //if (isOnMovingPlatform)
+        //{
+        //    SaveLateUpdateGroundTransforms();
+        //}
         OnUpdateFinish?.Invoke(Time.deltaTime);
     }
 
@@ -400,25 +400,25 @@ public class DCLCharacterController : MonoBehaviour
         if (groundTransform == null)
             ResetGround();
 
-        if (isOnMovingPlatform)
-        {
-            Physics.SyncTransforms();
-            //NOTE(Brian): This should move the character with the moving platform
-            Vector3 newGroundWorldPos = groundTransform.TransformPoint(lastLocalGroundPosition);
-            movingPlatformSpeed = Vector3.Distance(newGroundWorldPos, transform.position);
-            transform.position = newGroundWorldPos;
+        //if (isOnMovingPlatform)
+        //{
+        //    Physics.SyncTransforms();
+        //    //NOTE(Brian): This should move the character with the moving platform
+        //    Vector3 newGroundWorldPos = groundTransform.TransformPoint(lastLocalGroundPosition);
+        //    movingPlatformSpeed = Vector3.Distance(newGroundWorldPos, transform.position);
+        //    transform.position = newGroundWorldPos;
 
-            Vector3 newCharacterForward = groundTransform.TransformDirection(lastCharacterRotation);
-            Vector3 lastFrameDifference = Vector3.zero;
-            if (CommonScriptableObjects.characterForward.HasValue())
-            {
-                lastFrameDifference = CommonScriptableObjects.characterForward.Get().Value - lastGlobalCharacterRotation;
-            }
+        //    Vector3 newCharacterForward = groundTransform.TransformDirection(lastCharacterRotation);
+        //    Vector3 lastFrameDifference = Vector3.zero;
+        //    if (CommonScriptableObjects.characterForward.HasValue())
+        //    {
+        //        lastFrameDifference = CommonScriptableObjects.characterForward.Get().Value - lastGlobalCharacterRotation;
+        //    }
 
-            //NOTE(Kinerius) CameraStateTPS rotates the character between frames so we add the difference.
-            //               if we dont do this, the character wont rotate when moving, only when the platform rotates
-            CommonScriptableObjects.characterForward.Set(newCharacterForward + lastFrameDifference);
-        }
+        //    //NOTE(Kinerius) CameraStateTPS rotates the character between frames so we add the difference.
+        //    //               if we dont do this, the character wont rotate when moving, only when the platform rotates
+        //    CommonScriptableObjects.characterForward.Set(newCharacterForward + lastFrameDifference);
+        //}
 
         Transform transformHit = CastGroundCheckingRays();
 
@@ -431,19 +431,19 @@ public class DCLCharacterController : MonoBehaviour
                 if (!characterPosition.RepositionedWorldLastFrame()
                     && groundHasMoved)
                 {
-                    isOnMovingPlatform = true;
-                    CommonScriptableObjects.playerIsOnMovingPlatform.Set(true);
+                    //isOnMovingPlatform = true;
+                    //CommonScriptableObjects.playerIsOnMovingPlatform.Set(true);
                     Physics.SyncTransforms();
                     SaveLateUpdateGroundTransforms();
 
                     Quaternion deltaRotation = groundTransform.rotation * Quaternion.Inverse(groundLastRotation);
-                    CommonScriptableObjects.movingPlatformRotationDelta.Set(deltaRotation);
+                    //CommonScriptableObjects.movingPlatformRotationDelta.Set(deltaRotation);
                 }
             }
             else
             {
                 groundTransform = transformHit;
-                CommonScriptableObjects.movingPlatformRotationDelta.Set(Quaternion.identity);
+                //CommonScriptableObjects.movingPlatformRotationDelta.Set(Quaternion.identity);
             }
         }
         else
