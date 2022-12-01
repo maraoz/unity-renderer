@@ -367,10 +367,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minimumYPosition: 0
   groundCheckExtraDistance: 0.1
-  gravity: -55
-  jumpForce: 12
-  movementSpeed: 11
-  runningSpeedMultiplier: 0.36
+  gravity: 0
+  jumpForce: 0
+  movementSpeed: 0
+  runningSpeedMultiplier: 0
   groundLayers:
     serializedVersion: 2
     m_Bits: 1025
@@ -435,8 +435,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundCheckExtraDistance: 0.25
-  movementSpeed: 11
-  runningSpeedMultiplier: 0.36
+  movementSpeed: 0
+  runningSpeedMultiplier: 0
   sprintAction: {fileID: 11400000, guid: 0cfb8d150b7d6934d856665cf924d01d, type: 2}
   characterYAxis: {fileID: 11400000, guid: d1bc201cd2f5a1d4b8f721ccc29d2c0f, type: 2}
   characterXAxis: {fileID: 11400000, guid: 44c3c5f07adca334696adae7b81c1869, type: 2}
